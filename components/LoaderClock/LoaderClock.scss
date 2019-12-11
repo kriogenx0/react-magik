@@ -1,0 +1,52 @@
+// @import "compass"
+
+$main: #09c;
+$r: 20;
+$d: $r * 2;
+$t: 4000;
+
+.c-loader_clock
+{
+
+  .clock-clock
+  {
+    width: #{$d}px;
+    height: #{$d}px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -#{$d/2}px;
+    margin-left: -#{$d/2}px;
+    border: #{$d/10}px solid $main;
+    border-radius: 50%;
+
+    &:before,
+    &:after
+    {
+      content: "";
+      position: absolute;
+      display: clock;
+      width: #{$d/10}px;
+      background-color: $main;
+      border-radius: #{($d/10)/2}px;
+      transform-origin: 50% 0;
+    }
+
+    &:before
+    {
+      height: #{$r - ($d/10)-(($d/10))}px;
+      left: #{$r - (($d/10)/2)}px;
+      top: 50%;
+      animation: spin #{$t}ms linear infinite;
+    }
+  }
+}
+
+
+
+@keyframes spin
+{
+  to {
+    transform: rotate(360deg);
+  }
+}

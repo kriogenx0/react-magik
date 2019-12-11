@@ -1,0 +1,46 @@
+.c-modal
+{
+  display: none;
+
+  &.modal-open {
+    display: block;
+  }
+
+  .modal-inner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+
+    &.do-not-close {
+      display: none;
+    }
+  }
+
+  .modal-overlay
+  {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+  }
+
+  .modal-box
+  {
+    position: fixed;
+    z-index: 1000;
+    top: 20%;
+    bottom: 20%;
+    left: 20%;
+    right: 20%;
+
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+  }
+
+}

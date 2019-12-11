@@ -1,0 +1,450 @@
+// Skin of this date-time-picker
+// http://xdsoft.net/jqplugins/datetimepicker/
+
+// This is the wrapping element around the input.
+@include module ("dte") {
+  position: relative;
+
+  // Because it's absolutely positioned, these need min widths in case they are contained by tiny parents.
+  &.date-enabled .xdsoft_datetimepicker {
+    min-width: 282px;
+  }
+  &.time-enabled .xdsoft_datetimepicker {
+    min-width: 122px;
+  }
+
+  &.date-enabled.time-enabled .xdsoft_datetimepicker {
+    min-width: 405px;
+  }
+
+  @include state("right") {
+    .xdsoft_datetimepicker {
+      right: 0 !important; // Overwrite their style manipulation.
+      left: auto !important; // Overwrite their style manipulation.
+      top: 100% !important; // Overwrite their style manipulation.
+    }
+  }
+}
+
+// This is the actual widget.
+.xdsoft_datetimepicker {
+  position: absolute;
+  display: none;
+  padding: $base-padding 0 0 0;
+  z-index: $z-modal;
+  left: 0 !important; // Overwrite their style manipulation.
+  top: 100% !important; // Overwrite their style manipulation.
+  margin: $base-padding / 2 0 $base-padding 0; // Offsets from input, provides buffer below if last element.
+
+  iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 75px;
+    height: 210px;
+    background: transparent;
+    border: none;
+  }
+
+  button {
+    z-index: $z-modal + 1;
+    border: none;
+
+    &:hover {
+      opacity: .6;
+      cursor: pointer;
+    }
+  }
+
+  &.xdsoft_inline {
+    display: inline-block;
+    position: static;
+    box-shadow: none;
+  }
+
+  .xdsoft_datepicker {
+    display: none;
+    float: left;
+    text-align: center;
+
+    .time-enabled & {
+      border-right: solid 1px $input-stroke;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+  .xdsoft_mounthpicker {
+
+    // Because these are on <buttons> we can't @extend sprite icons.
+    // They need to be called as indiviudal images and pixel pushed around so they have a bigger click area.
+    .xdsoft_prev {
+      background: url('images/dte-chevron-row.png') center no-repeat;
+      @include image-2x('images/2x/dte-chevron-row.png', image-width('../../assets/images/dte-chevron-row.png'), image-height('../../assets/images/dte-chevron-row.png'));
+      position: absolute;
+      left: $base-padding * 1.5;
+      height: $base-padding * 1.5;
+      width: $base-padding * 1.5;
+      margin-left: -9px;
+      margin-top: -6px;
+      background-color: transparent;
+      cursor: pointer;
+      @include transform(rotate(180deg));
+    }
+
+    .xdsoft_next {
+      background: url('images/dte-chevron-row.png') center no-repeat;
+      @include image-2x('images/2x/dte-chevron-row.png', image-width('../../assets/images/dte-chevron-row.png'), image-height('../../assets/images/dte-chevron-row.png'));
+      position: absolute;
+      right: $base-padding * 1.5;
+      height: $base-padding * 1.5;
+      width: $base-padding * 1.5;
+      margin-right: -9px;
+      margin-top: -6px;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+
+  .xdsoft_timepicker {
+    display: none;
+    float: left;
+    text-align: right;
+    margin-top: 0;
+    // The only element inside this is absolutely positioned, so we need a height/width.
+    width: 120px; // Time divs are 100px + $base-line-height for padding = 120px
+    min-height: 220px; // This is roughly the height of a minimum calendar.
+
+    &.active {
+      display: block;
+    }
+
+    .xdsoft_prev {
+      @extend .icn-dte-chevron-col;
+      background-color: transparent;
+      display: block;
+      margin: 0 auto $base-padding / 2 auto;
+      cursor: pointer;
+      position: absolute;
+      top: $base-padding;
+      right: 53px;
+      display: none;
+    }
+
+    .xdsoft_next {
+      @extend .icn-dte-chevron-col;
+      @include transform(rotate(180deg));
+      background-color: transparent;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+      position: absolute;
+      bottom: $base-padding;
+      right: 53px;
+      display: none;
+    }
+
+    // The time box is the right side timepicker.
+    // It can either be by itself or with a calander.
+    // Due to the poor html, i have to absolute position it so it can adjust it's height.
+    .xdsoft_time_box {
+      overflow: hidden;
+      margin: $base-padding / 2 0;
+      padding: 0 $base-padding / 2;
+      position: absolute;
+      top: $base-padding / 2;
+      bottom: $base-padding / 2;
+      // These are the individual times you can select.
+      .xdsoft_time {
+        text-align: center;
+        border-collapse: collapse;
+        cursor: pointer;
+        width: 100px; // We need a width to match against the timepicker absolute positioning.
+        height: $base-padding * 1.5;
+        line-height: $base-padding * 1.5;
+        @include border-radius($base-padding);
+
+        &.xdsoft_current, &:hover.xdsoft_current {
+          background: color('blue');
+          color: color('white');
+        }
+
+        &:hover {
+          background: color('shadow-gray');
+        }
+
+        &.xdsoft_disabled {
+          opacity: .5;
+        }
+
+        &.xdsoft_disabled:hover {
+          color: inherit !important;
+          background: inherit !important;
+        }
+      }
+      .xdsoft_time_variant.is-imperfect .xdsoft_current {
+        background: none;
+        color: inherit;
+        &:hover {
+          background: color('shadow-gray');
+        }
+      }
+    }
+  }
+
+  // This is purposefully mispelled to match their markup
+  .xdsoft_mounthpicker {
+    position: relative;
+  }
+
+  .xdsoft_label {
+    display: inline-block;
+    position: relative;
+    z-index: $z-popover;
+    cursor: pointer;
+
+    span {
+      font-weight: $base-weight-bold;
+      font-size: 14px;
+    }
+
+    i {
+      display: none;
+    }
+
+    > .xdsoft_select {
+      position: absolute;
+      top: 100%;
+      display: none;
+      max-height: 160px;
+      overflow-y: hidden;
+      padding: $base-padding / 2;
+      z-index: $z-popover + 2;
+
+      &.xdsoft_monthselect {
+        right: 0;
+      }
+
+      &.xdsoft_yearselect {
+        left: 0;
+      }
+
+      > div > .xdsoft_option {
+        text-align: center;
+        border-collapse: collapse;
+        cursor: pointer;
+        padding: 0 $base-padding / 2;
+        height: $base-padding * 1.5;
+        line-height: $base-padding * 1.5;
+        @include border-radius($base-padding);
+
+        &.xdsoft_current {
+          background: color('blue');
+          color: color('white');
+        }
+      }
+    }
+  }
+
+  // We don't use this button
+  .xdsoft_today_button {
+    display: none;
+  }
+
+  .xdsoft_month {
+    margin-right: $base-padding / 4;
+  }
+
+  .xdsoft_calendar {
+    clear: both;
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: $base-padding 0 $base-padding 0;
+    }
+
+    td {
+      width: $base-padding * 1.5;
+      color: #666;
+      text-align: center;
+      vertical-align: middle;
+      padding: 2px; // Gives a little room between the circles.
+      border-collapse: collapse;
+      cursor: pointer;
+      height: $base-padding * 1.5;
+
+      // Saturday
+      &.xdsoft_day_of_week6 {
+        padding-right: $base-line-height;
+      }
+
+      // Sunday
+      &.xdsoft_day_of_week0 {
+        padding-left: $base-line-height;
+      }
+
+      &.xdsoft_today {
+        color: color('blue');
+        font-weight: $base-weight-bold;
+      }
+
+      // I have no idea where this is being used.
+      &.xdsoft_default {
+        background: #33aaff;
+        color: color('white');
+        font-weight: 700;
+      }
+
+      &.xdsoft_current, &:hover.xdsoft_current, &:hover.xdsoft_disabled.xdsoft_current {
+        //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+        > div {
+          background: color('blue');
+          color: white;
+        }
+      }
+
+      &.xdsoft_other_month {
+        color: color('medium-gray');
+      }
+
+      &.xdsoft_disabled {
+        opacity: 0.5;
+        cursor: default;
+
+        &:hover {
+          color: inherit !important;
+          cursor: default;
+
+          > div {
+            background: transparent;
+          }
+        }
+      }
+
+      &:hover > div {
+        background: color('shadow-gray');
+        color: inherit;
+      }
+
+      > div {
+        width: $base-padding * 1.5;
+        height: $base-padding * 1.5;
+        line-height: $base-padding * 1.5;
+        background: white;
+        @include border-radius(50%);
+      }
+    }
+
+    th {
+      background: color('shadow-gray');
+      text-align: center;
+      width: $base-padding * 1.5;
+      height: $base-padding * 1.5;
+      color: color('medium-gray');
+      text-align: center;
+      vertical-align: middle;
+      border-collapse: collapse;
+
+      // Saturday
+      &:nth-child(7n) {
+        padding-right: $base-line-height;
+      }
+
+      &:first-child {
+        padding-left: $base-line-height;
+      }
+    }
+
+    td.xdsoft_other_month.xdsoft_disabled {
+      opacity: 0.2;
+    }
+
+    &.is-off-month td.xdsoft_current {
+      > div {
+        color: #666;
+        background: none;
+      }
+      &:hover > div {
+        background: color('shadow-gray');
+      }
+    }
+
+  }
+
+  .xdsoft_time_box >div >div.xdsoft_disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  // We don't use week selection that I know of. Commenting it out so we remember we can.
+
+  // &.xdsoft_showweeks {
+    //
+    // 	.xdsoft_datepicker {
+      // 		width: 256px;
+    // 	}
+    //
+    // 	.xdsoft_calendar {
+      //
+      // 		td {
+        // 			width: 12.5%;
+      // 		}
+      //
+      // 		th {
+        // 			width: 12.5%;
+      // 		}
+    // 	}
+  // }
+
+}
+
+.xdsoft_noselect {
+  user-select: none;
+}
+
+.xdsoft_noselect {
+
+  &:selection {
+    background: transparent;
+  }
+
+  &:-moz-selection {
+    background: transparent;
+  }
+}
+
+.xdsoft_time_box {
+  position: relative;
+}
+
+
+// Scrollbar
+// This mimics the styles from modeuls/_scrollbars.scss. Unfortuantely the markup is different so
+// it doesn't make sense to extend the class.
+.xdsoft_scroller_box {
+  position: relative;
+
+  &:hover .xdsoft_scrollbar .xdsoft_scroller {
+    opacity: .8;
+  }
+
+  .xdsoft_scrollbar {
+    position: absolute;
+    width: 6px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+
+    >.xdsoft_scroller {
+      background: color('gray');
+      border-radius: 10px;
+      opacity: .1;
+      z-index: $z-modal + 5 !important;
+      @include transform(translateX(-1px));
+      @include transition(opacity $anim-ease $anim-speed-fast);
+    }
+  }
+}

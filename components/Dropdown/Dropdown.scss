@@ -1,0 +1,41 @@
+.c-dropdown
+{
+  position: relative;
+  // label
+  > a
+  {
+    display: block;
+    padding: 10px;
+    // border: 1px solid #ccc;
+    text-decoration: none;
+  }
+
+  > .dropdown-contents
+  {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    // padding: 10px;
+  }
+
+  &.is-open > .dropdown-contents
+  {
+    display: block;
+  }
+}
+.dropdown-overlay
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.2);
+}

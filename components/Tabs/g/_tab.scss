@@ -1,0 +1,31 @@
+// These styles extend guidebook-common-styles/tab.scss
+
+@include module (tab) {
+  @include element( item ) {
+    > a {
+      span {
+        height: $base-padding * 1.5;
+        line-height: $base-padding * 1.5;
+        display: inline-block;
+      }
+    }
+
+    @include state ('danger') {
+      > a {
+        color: color('red');
+      }
+
+      i {
+        display: inline-block;
+        background: color('red');
+        width: $base-padding * 1.5;
+        height: $base-padding * 1.5;
+        line-height: $base-padding * 1.5;
+        margin-left: $base-padding / 2;
+        color: color('white');
+        @include border-radius(50%);
+        @include adjust-font-size-to(13px);
+      }
+    }
+  }
+}

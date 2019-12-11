@@ -1,0 +1,214 @@
+// CPR - Color Picker
+//
+// Located in `modules/cpr.scss`.
+//
+// Markup:
+// <div class="cpr">
+//   <div class="cpr_blot"></div><input class="txt cpr_input" value="#AE61F2" />
+//   <div class="cpr_panel">
+//     <section>
+//       <div class="cpr_square">
+//         <div class="cpr_marker"></div>
+//         <div class="cpr_square_val"></div>
+//         <div class="cpr_square_sat"></div>
+//       </div>
+//       <div class="cpr_rainbow"><div class="cpr_slide"></div></div>
+//     </section>
+//     <aside>
+//       <div class="cpr_blot"></div><input class="txt cpr_input" value="#AE61F2" />
+//       <ul class="cpr_hsb">
+//         <li>
+//           <input type="text" class="txt" value="272"/>
+//           <span>H</span>
+//         </li>
+//         <li>
+//           <input type="text" class="txt" value="60%"/>
+//           <span>S</span>
+//         </li>
+//         <li>
+//           <input type="text" class="txt" value="67%" />
+//           <span>B</span>
+//         </li>
+//       </ul>
+//       <div class="cpr_split"></div>
+//       <ul class="cpr_palette">
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//         <li></li>
+//       </ul>
+//     </aside>
+//   </div>
+// </div>
+//
+//
+// Styleguide 2
+
+@include module ("cpr") {
+  position: relative;
+
+  @include element ("blot") {
+    @include border-left-radius(6px);
+    width: 40px;
+    height: 40px;
+    float: left;
+    @include box-shadow(inset 0 0 0 1px rgba(0,0,0,.15));
+    border-right: 0;
+  }
+
+  @include element ("input") {
+    padding-left: $input-padding * 2;
+    @include border-left-radius(0);
+    border-left: none !important;
+  }
+
+  @include element ("panel") {
+    width: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include transform-origin(left, top);
+    padding: $base-padding;
+    margin-bottom: $base-padding;
+    @include user-select(none);
+
+    section {
+      width: 200px;
+      margin-right: 18px;
+      float: left;
+    }
+
+    aside {
+      width: 140px;
+      float: left;
+    }
+
+    input {
+      width: 100px;
+    }
+
+  }
+
+  @include element ("split") {
+    height: 1px;
+    width: 160px;
+    background: $input-stroke;
+    margin: $base-padding / 2 0;
+  }
+
+  @include element ("rainbow") {
+    position: relative;
+    height: $base-padding;
+    border: solid 2px color(shadow-gray);
+    overflow: hidden;
+    @include border-radius($base-border-radius);
+    @include background(linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%))
+  }
+
+  @include element ("slide") {
+    position: absolute;
+    // -4px to account for 2px border height of the rainbow above.
+    height: $base-padding - 4px;
+    width: 8px;
+    margin-left: -4px;
+    background: white;
+    box-shadow: 0 0px 10px rgba(0,0,0,.5);
+    cursor: ew-resize;
+    @include border-radius($base-border-radius);
+  }
+
+  @include element ("square") {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: $base-padding / 2;
+    overflow: hidden;
+    cursor: pointer;
+    @include border-radius($base-border-radius);
+  }
+
+  @include element ("marker") {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin-top: -7px;
+    margin-left: -7px;
+    border: solid 2px white;
+    box-shadow: 0 0px 3px rgba(0,0,0,.5);
+    z-index: $z-content-over + 5;
+    @include border-radius(50%);
+  }
+
+  @include element ("square_sat") {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    @include background(linear-gradient(to top, #000, rgba(204, 154, 129, 0)));
+    @include box-shadow(inset 0 0 0 1px rgba(0,0,0,.1));
+    @include border-radius($base-border-radius);
+  }
+
+  @include element ("square_val") {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    @include background(linear-gradient(to right, #fff, rgba(204, 154, 129, 0)));
+  }
+
+  // 4 palette dots per row, size same as base-padding for balance, but needs
+  // some pixel pushing to center correctly without within the aside wrap.
+  @include element ("palette") {
+    margin-left: 2px;
+
+    li {
+      float: left;
+      width: $base-padding;
+      height: $base-padding;
+      @include box-shadow(inset 0 0 0 1px rgba(0,0,0,0.1));
+      @include border-radius(50%);
+      margin: 7px;
+      cursor: pointer;
+    }
+
+  }
+
+  @include element ("hsb") {
+    margin-top: $base-padding / 2;
+    @include pie-clearfix;
+
+    li {
+      width: 40px;
+      text-align: center;
+      float: left;
+    }
+
+    li:nth-child(2) {
+      margin: 0 $base-padding / 2;
+    }
+
+    input {
+      width: 100%;
+      height: 30px;
+      margin-bottom: $base-padding / 4;
+      @include adjust-font-size-to(12px);
+      text-align: center;
+    }
+
+    span {
+      font-weight: $base-weight-bold;
+    }
+
+  }
+}

@@ -1,0 +1,40 @@
+.eegul {
+  &.modal {
+    &.hide-header {
+      .modal-header {
+        display: none;
+      }
+    }
+  }
+}
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-body {
+        overflow-y: scroll;
+      }
+    }
+    .modal-footer {
+      .btn {
+        float: left;
+      }
+    }
+  }
+
+  &.inline-mode {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    .modal-dialog {
+      width: auto;
+
+      .modal-content {
+        box-shadow: none;
+        border-radius: 0px;
+      }
+    }
+  }
+}

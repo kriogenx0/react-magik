@@ -1,0 +1,124 @@
+@-webkit-keyframes pulsate {
+  0% {color: #000;}
+  100% {color: #fff;}
+}
+
+@keyframes pulsate {
+  0% {color: #000;}
+  100% {color: #fff;}
+}
+
+.c-load_spinner
+{
+
+  .spn_spinner
+  {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    top: -3px;
+  }
+
+  .spn_spinner_arm
+  {
+    width: 10%;
+    height: 25%;
+    background: #888;
+    position: absolute;
+    left: 44.5%;
+    top: 37%;
+    margin-left: -1px;
+    // @include transform-origin(bottom, center);
+    // @include border-radius(2px 2px 0 0);
+    border-radius: 2px 2px 0 0;
+    // @include animation(fade 1s infinite);
+    animation: pulsate 1s infinite;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        // @include transform(rotate(#{(30 * $i) - 30}deg) translateY(-100%));
+        // @include animation-delay(#{-1 * ((8.3 * $i) / 100)}s);
+        transform: rotate(#{(30 * $i) - 30}deg) translateY(-100%);
+        animation-delay: #{-1 * ((8.3 * $i) / 100)}s;
+      }
+    }
+  }
+
+  .spn-12
+  {
+    > .spn_spinner {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .spn-12
+  {
+    > .spn_spinner {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .spn_overlay
+  {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 100%;
+    top: 0;
+    vertical-align: middle;
+    text-align: center;
+    // z-index: $z-content;
+    // background: transparentize(color('white'), .2);
+    background: rgba(255,255,255,.2);
+
+    > .spn_spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -12px;
+      margin-top: -12px;
+    }
+
+    &.spn-16 {
+      > .spn_spinner {
+        margin-top: -8px;
+        margin-left: -8px;
+      }
+    }
+
+    &.spn-12 {
+      > .spn_spinner {
+        margin-top: -6px;
+        margin-left: -6px;
+      }
+    }
+  }
+
+  .spn-full-screen
+  {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+
+    > .spn_spinner {
+      position: absolute;
+      top: 50%;
+      margin-top: -12px;
+      left: 50%;
+      margin-left: -12px;
+    }
+  }
+
+  .spn-absolute-center
+  {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+
+}

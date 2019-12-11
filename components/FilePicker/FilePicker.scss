@@ -1,0 +1,44 @@
+.c-file_picker
+{
+  .file_picker-select
+  {
+    margin-bottom: 10px;
+  }
+  .file_picker-file
+  {
+    border-radius: 3px;
+    border: 1px solid #e1e1e1;;
+    background: #fff;
+    color: #888;
+    margin-bottom: 10px;
+    min-height: 50px;
+    line-height: 50px;
+
+    &:last-child
+    {
+      margin-bottom: 0;
+    }
+
+    > *
+    {
+      display: inline-block;
+    }
+
+    .file-icon
+    {
+      margin: 0 0;
+      padding: 0 15px;
+    }
+
+    // REMOVE X
+    .btn
+    {
+      float: right;
+      border: 0 none;
+      border-radius: 0;
+      padding: 0 20px;
+      height: 50px;
+      color: #888;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.c-tab_bar
+{
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.c-tab_bar-link
+{
+  border-bottom: 1px solid transparent;
+  display: inline-block;
+  margin: 0;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: #bbb;
+  margin-bottom: -1px;
+  transition: color 150ms, border-color 150ms;
+
+  &:hover
+  {
+    color: #888;
+    // border-bottom-color: #111;
+  }
+
+  &.tab-active
+  {
+    cursor: default;
+    color: darken(#39b4e4, 10%);
+    border-bottom: 2px solid darken(#39b4e4, 10%);
+    padding-bottom: 9px;
+  }
+
+  &:link, &:visited, &:hover, &:active
+  {
+    text-decoration: none;
+  }
+}

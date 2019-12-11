@@ -1,0 +1,101 @@
+// @import "compass"
+
+$main: #E08764;
+$secondary: darken($main, 10);
+$r: 20;
+$d: $r * 2;
+$t: 5000;
+
+.c-loader_knob
+{
+  .knob-knob
+  {
+    width: #{$d}px;
+    height: #{$d}px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -#{$d/2}px;
+    margin-left: -#{$d/2}px;
+    border: #{$d/10}px solid $secondary;
+    border-radius: 50%;
+
+    &:before,
+    &:after
+    {
+      content: "";
+      position: absolute;
+      display: block;
+      width: #{$d/10}px;
+      background-color: $secondary;
+      border-radius: #{($d/10)/2}px;
+      transform-origin: 50% 0;
+    }
+
+    &:before
+    {
+      height: #{$r - ($d/10)-(($d/10))}px;
+      left: #{$r - (($d/10)/2)}px;
+      top: 50%;
+      animation: spin #{$t}ms linear infinite;
+    }
+  }
+
+  .knob-indicator
+  {
+    width: 2px;
+    height: 20px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px; /* half of height */
+    // @include transform-origin(bottom, center);
+    // @include border-radius(2px 2px 0 0);
+    border-radius: 2px 2px 0 0;
+    // @include animation(fade 1s infinite);
+    animation: pulsate 1s infinite;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        // @include transform(rotate(#{(30 * $i) - 30}deg) translateY(-100%));
+        // @include animation-delay(#{-1 * ((8.3 * $i) / 100)}s);
+        transform: rotate(#{(30 * $i) - 30}deg) translateY(-100%);
+        animation-delay: #{-1 * ((8.3 * $i) / 100)}s;
+      }
+    }
+  }
+}
+
+
+
+@keyframes spin
+{
+  0% {
+    transform: rotate(30deg);
+  }
+  70% {
+    transform: rotate(300deg);
+  }
+  76% {
+    transform: rotate(300deg);
+  }
+  78% {
+    transform: rotate(280deg);
+  }
+  80% {
+    transform: rotate(320deg);
+  }
+  82% {
+    transform: rotate(270deg);
+  }
+  84% {
+    transform: rotate(320deg);
+  }
+  85% {
+    transform: rotate(330deg);
+  }
+  100% {
+    transform: rotate(330deg);
+  }
+}

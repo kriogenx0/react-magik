@@ -1,0 +1,59 @@
+.c-mobile_phone
+{
+  text-align: center;
+  position: relative;
+
+  .phone-outside
+  {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 58px 16px 66px;
+    border-radius: 28px;
+    margin: 0 auto;
+    display: inline-block;
+  }
+
+  .phone-speaker
+  {
+    height: 8px;
+    width: 56px;
+    margin-left: -28px;
+    position: absolute;
+    top: 26px;
+    left: 50%;
+    border-radius: 4px;
+    background: #eee;
+  }
+
+  .phone-status_bar
+  {
+    height: 20px;
+    line-height: 21px;
+    z-index: 1;
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+    font-size: 11px;
+    font-family: 'San Francisco', 'SF UI Text', 'SF UI Display', 'SF', sans-serif;
+  }
+
+  .phone-display
+  {
+    width: 320px;
+    min-height: 480px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #eee;
+  }
+
+  .phone-button
+  {
+    height: 40px;
+    width: 40px;
+    margin-left: -20px;
+    border-radius: 50px;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    background: #eee;
+  }
+}

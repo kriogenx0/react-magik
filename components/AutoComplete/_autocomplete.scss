@@ -1,0 +1,110 @@
+// *************************************
+//
+//   Autocomplete module
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------
+
+
+@include module ("autocomplete") {
+
+  position: relative;
+  min-width: 300px;
+  background: white;
+
+  // -------------------------------------
+  //   Modifiers
+  // -------------------------------------
+
+
+
+  // -------------------------------------
+  //   Elements
+  // -------------------------------------
+
+  @include element ("options") {
+    list-style: none;
+    text-align: left;
+    position: relative;
+  }
+
+  @include element ("chosen") {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    padding: $input-padding;
+    cursor: text;
+  }
+
+  @include element ("chosen_item") {
+    display: inline-block;
+    margin-right: $input-padding;
+    margin-bottom: 4px;
+    float: left;
+    cursor: default;
+    max-width: 100%;
+    line-height: 0;
+
+    > .autocomplete_chosen_item_pill {
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 28px;
+      line-height: 28px;
+      max-width: 100%;
+
+      .pil_clear {
+        line-height: 28px;
+      }
+    }
+  }
+
+  @include element ("chosen_item_pill") {
+    font-weight: $base-weight-bold;
+    color: white;
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+
+    &.is-focused {
+      background: darken(color('light-gray'), 15%);
+    }
+  }
+
+  @include state ("single") {
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: $base-padding / 2;
+      top: $base-padding;
+      @extend .icn-caret-down;
+    }
+
+    @include element ("chosen", nested) {
+      cursor: pointer !important;
+    }
+
+    @include element ("chosen_item", nested) {
+    }
+
+    @include element ("chosen_item_pill", nested) {
+      background: transparent;
+      cursor: pointer;
+    }
+
+  }
+
+
+}

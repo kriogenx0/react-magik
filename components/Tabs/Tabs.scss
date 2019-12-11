@@ -1,0 +1,69 @@
+.c-tabs
+{
+  .tabs-bar
+  {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+
+  .tabs-tab_link
+  {
+    border-bottom: 1px solid transparent;
+    display: inline-block;
+    margin: 0;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #bbb;
+    margin-bottom: -1px;
+    transition: color 150ms, border-color 150ms;
+
+    &:hover
+    {
+      color: #888;
+      // border-bottom-color: #111;
+    }
+
+    &.tab-active
+    {
+      cursor: default;
+      color: darken(#39b4e4, 10%);
+      border-bottom: 2px solid darken(#39b4e4, 10%);
+      padding-bottom: 9px;
+    }
+
+    &:link, &:visited, &:hover, &:active
+    {
+      text-decoration: none;
+    }
+  }
+}
+
+// @include module (tab) {
+//   @include element( item ) {
+//     > a {
+//       span {
+//         height: $base-padding * 1.5;
+//         line-height: $base-padding * 1.5;
+//         display: inline-block;
+//       }
+//     }
+//
+//     @include state ('danger') {
+//       > a {
+//         color: color('red');
+//       }
+//
+//       i {
+//         display: inline-block;
+//         background: color('red');
+//         width: $base-padding * 1.5;
+//         height: $base-padding * 1.5;
+//         line-height: $base-padding * 1.5;
+//         margin-left: $base-padding / 2;
+//         color: color('white');
+//         @include border-radius(50%);
+//         @include adjust-font-size-to(13px);
+//       }
+//     }
+//   }
+// }

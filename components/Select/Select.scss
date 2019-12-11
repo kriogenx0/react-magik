@@ -1,0 +1,74 @@
+@import '../_shared/all';
+
+.c-select
+{
+  position: relative;
+
+  // label
+  > a,
+  > .select-label
+  {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+
+    border: 1px solid #eee;
+    border-radius: 3px;
+    color: #666;
+    background-color: #fff;
+    transition: border-color $transition_time, color $transition_time, background-color $transition_time;
+
+    &:hover
+    {
+      border-color: #ccc;
+      background-color: #fafafa;
+      color: #000;
+    }
+  }
+
+  > .dropdown-contents
+  {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    // padding: 10px;
+  }
+
+  &.is-open > .dropdown-contents
+  {
+    display: block;
+  }
+
+  .select-option
+  {
+    cursor: pointer;
+    background-color: #fafafa;
+    padding: 5px;
+    font-size: 14px;
+
+    // transition: background-color $transition_time, color $transition_time;
+
+    &:hover
+    {
+      color: $active_color;
+      background-color: #f1f1f1;
+    }
+  }
+}
+
+.dropdown-overlay
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.2);
+}

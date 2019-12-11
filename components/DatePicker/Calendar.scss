@@ -1,0 +1,48 @@
+$calendar-size: 40px;
+
+.c-calendar
+{
+  max-width: $calendar-size * 7;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+  div.calendar-day
+  {
+    float: left;
+    width: $calendar-size;
+    text-align: center;
+    height: $calendar-size;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover
+    {
+      background-color: #ccc;
+    }
+
+    &.day-current
+    {
+      background-color: #fcc;
+    }
+  }
+
+  .cal-prev,
+  .cal-month,
+  .cal-next
+  {
+    padding: 5px;
+  }
+  .cal-prev
+  {
+    float: left;
+  }
+  .cal-next
+  {
+    float: right;
+  }
+}
+.clear
+{
+  clear: both;
+}

@@ -1,0 +1,35 @@
+.c-map_selector
+{
+  > .clearfix,
+  .map_selector-location_found
+  {
+    position: relative;
+  }
+
+  .map_selector-search_box
+  {
+    position: absolute;
+    right: 99px;
+    left: 0;
+    top: 0;
+  }
+
+  .map_selector-location_found
+  {
+    span
+    {
+      display: block;
+      position: absolute;
+      right: 99px;
+      left: 0;
+      top: 0;
+      height: 45px;
+      line-height: 45px;
+    }
+    button
+    {
+      float: right;
+    }
+  }
+
+}

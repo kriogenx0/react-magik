@@ -1,0 +1,20 @@
+$border-rad: 10px;
+
+.c-segmented_control_buttons
+{
+  > div
+  {
+    float: left;
+    border-radius: 0;
+
+    &:first-child
+    {
+      border-radius: $border-rad 0 0 $border-rad;
+    }
+
+    &:last-child
+    {
+      border-radius: 0 $border-rad $border-rad 0;
+    }
+  }
+}

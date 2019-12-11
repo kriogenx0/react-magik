@@ -1,0 +1,50 @@
+.c-loader
+{
+  .loader-container
+  {
+    margin: auto;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+    color: #aaa;
+  }
+
+  // TODO get loader full screen working
+  // &.loader-full .loader-container
+  // {
+  //   position: relative;
+  //   top: auto;
+  //   bottom: auto;
+  //   left: auto;
+  //   right: auto;
+  // }
+
+  .loader-message-ctn
+  {
+    position: absolute;
+    top: 44%;
+    left: 0;
+    right: 0;
+    vertical-align: middle;
+  }
+  .loader-message
+  {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 30px;
+  }
+
+  &.loader-block
+  {
+    .loader-container
+    {
+      position: fixed;
+      z-index: 10000;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

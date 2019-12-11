@@ -1,0 +1,77 @@
+// styles for tooltips
+
+@include module ("ttp") {
+  position: absolute;
+  max-width: 200px;
+  background: color('dark-gray');
+  @include border-radius($base-border-radius);
+  line-height: 1.2;
+  color: color('white');
+  z-index: $z-modal + 10;
+  display: none;
+  font-size: 12px;
+
+  @include element ("body") {
+    padding: 7px 10px;
+  }
+
+  &:before {
+    position: absolute;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 4px solid color('dark-gray');
+  }
+
+  @include submodule ('n') {
+    text-align: center;
+
+    &:before {
+      border-bottom: none;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      bottom: -4px;
+      left: 50%;
+      margin-left: -4px;
+    }
+  }
+
+  @include submodule ('s') {
+    text-align: center;
+
+    &:before {
+      border-top: none;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      top: -3px;
+      left: 50%;
+      margin-left: -4px;
+    }
+  }
+
+  @include submodule ('w') {
+    &:before {
+      border-right: none;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      right: -4px;
+      top: 50%;
+      margin-top: -4px;
+    }
+  }
+
+  @include submodule ('e') {
+    &:before {
+      border-left: none;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      left: -4px;
+      top: 50%;
+      margin-top: -4px;
+    }
+  }
+
+  .force-hide-tooltips & {
+    display: none !important;
+  }
+}

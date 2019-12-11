@@ -1,0 +1,36 @@
+.c-pop_over
+{
+  display: none;
+
+  &.pop_over-open {
+    display: block;
+  }
+
+  &.pop_over-full,
+  .overlay,
+  .inner-overlay
+  {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &.pop_over-full
+  {
+    background: rgba(255,255,255,0.8);
+  }
+
+  .inner-overlay
+  {
+    // position: absolute;
+  }
+
+  .overlay,
+  .inner-overlay
+  {
+    background: rgba(0,0,0,0.05);
+  }
+
+}

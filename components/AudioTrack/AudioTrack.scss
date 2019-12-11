@@ -1,0 +1,102 @@
+$inactive: #888;
+
+.c-audio_track
+{
+  display: table;
+  background: #fff;
+  color: $inactive;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #e1e1e1;
+  overflow: hidden; // BORDER CORNERS
+  transition: border-color 150ms;
+  min-height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+
+  &:hover
+  {
+    border-color: #ccc;
+  }
+
+  .audio_track-controls
+  {
+    display: table-row;
+    font-size: 18px;
+    text-align: center;
+    min-height: 50px;
+
+    > *
+    {
+      display: table-cell;
+      vertical-align: middle;
+      min-width: 50px;
+      cursor: default;
+    }
+    > *,
+    .rail-elapsed_percent
+    {
+      height: 50px;
+    }
+    .rail-elapsed_percent
+    {
+      background: rgba(0,0,0,0.2);
+      transition: background-color 150ms;
+      width: 0%;
+    }
+
+    .rail
+    {
+      width: 100%;
+      // IF WAVEFORM BACKGROUND
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+
+      &:hover .rail-elapsed_percent
+      {
+        background-color: rgba(57,180,228, 0.2);
+      }
+    }
+
+    .time,
+    .duration
+    {
+      font-size: 14px;
+    }
+
+    .control
+    {
+      cursor: pointer;
+      transition: background-color 150ms, color, 150ms;
+
+      &:hover
+      {
+        background-color: #f1f1f1;
+        color: #333;
+      }
+    }
+  }
+
+  .error
+  {
+    padding: 0 15px;
+
+    i
+    {
+      font-size: 18px;
+      margin-right: 7px;
+    }
+  }
+
+  .c-load_bars .spinner
+  {
+    margin: 5px auto;
+    width: auto;
+
+    > div
+    {
+      background-color: $inactive;
+    }
+  }
+}

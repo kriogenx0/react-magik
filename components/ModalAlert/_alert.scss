@@ -1,0 +1,43 @@
+// lrt - aLeRT!
+
+$alertWidth: 500px;
+
+@include module ("lrt") {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,.85);
+  text-align: center;
+  max-width: none;
+  z-index: $z-modal + 1;
+
+  @include element ("container") {
+    width: $alertWidth;
+    @include border-radius($base-border-radius);
+    @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.14));
+    z-index: $z-content-over;
+    background: color('white');
+    border: 1px solid rgba(0,0,0,.2);
+    padding: $base-padding;
+  }
+
+  @include element ("title") {
+    @extend %xlarge-font;
+    font-weight: normal;
+    margin-bottom: $base-padding;
+  }
+
+  @include element ("buttons") {
+    @extend %l-flex-row;
+
+    > .btn {
+      @extend %l-flex-grow-1;
+
+      & + .btn {
+        margin-left: 20px;
+      }
+    }
+  }
+}

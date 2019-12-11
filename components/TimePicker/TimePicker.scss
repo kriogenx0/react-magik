@@ -1,0 +1,34 @@
+.c-time_picker
+{
+  display: inline-block;
+
+  > * {
+    display: inline-block;
+    float: left;
+  }
+  .time_picker-div
+  {
+    width: 20px;
+    text-align: center;
+    line-height: 42px;
+  }
+
+  .time_picker-hour
+  {
+    width: 50px;
+  }
+  .time_picker-minute
+  {
+    width: 50px;
+  }
+
+  .c-segmented_control
+  {
+    margin-left: 20px;
+
+    a
+    {
+      line-height: 24px;
+    }
+  }
+}

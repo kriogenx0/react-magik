@@ -1,0 +1,461 @@
+$base-padding: 10px;
+$base-line-height: 24px;
+$input-stroke: 1px;
+$z-index: 1000;
+$z-fixed: true;
+$controlHeight: 50px;
+
+.c-image_crop
+{
+  img
+  {
+    max-width: 200px;
+    max-height: 200px;
+    cursor: pointer;
+    margin-bottom: $base-padding / 2;
+  }
+
+  .errors
+  {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    color: color('red');
+    z-index: 0;
+    border: 1px solid color('red');
+  }
+}
+
+
+
+.image-crop
+{
+
+  $controlHeight: 60px;
+
+  // We need to be able to scroll vertically (to see the buttons), but want to limit width in case they upload
+  // something super crazy large, then hit the original size button. We also set overflow-y to auto so you don't
+  // a jarring jump as the image resizes past the current window height.
+  position: fixed;
+  min-height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-fixed;
+  background: color(bg);
+  opacity: 0;
+  transform: translateZ(0);
+
+  // @include transition(opacity $anim-ease $anim-speed-fast);
+
+  .modal
+  {
+    position: absolute;
+    width: 1020px;
+    min-height: 200px;
+    left: 50%;
+    margin-left: -510px;
+    top: $base-line-height * 3;
+    transform: translateZ(0);
+    opacity: 0;
+    // @include transform(translateY(4px));
+    // @include transition-delay(100ms);
+    // @include transition-property(transform, opacity);
+    // @include transition-timing-function($anim-slight-bounce);
+    // @include transition-duration($anim-speed-fast);
+    // @include transform-origin(center, bottom);
+    h2, h3 {
+      text-align: center;
+    }
+    h2 {
+      font-weight: normal;
+      margin-bottom: $base-padding / 2;
+      // @include adjust-font-size-to(300%)
+    }
+    h3 {
+      font-weight: normal;
+      margin-bottom: $base-padding * 3;
+      color: color(slate-gray);
+    }
+  }
+
+  .close
+  {
+    position: fixed;
+    top: $base-padding;
+    right: $base-padding;
+    width: $base-padding * 2;
+    height: $base-padding * 2;
+    cursor: pointer;
+    display: block;
+
+    &:after, &:before {
+      top: 50%;
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 1px;
+      background-color: color(medium-gray);
+      // @include transition-property(background-color);
+      // @include transition-duration(.2s);
+      // @include transition-timing-function(ease-in);
+    }
+
+    &:hover:after, &:hover:before {
+      background-color: color(dark-gray);
+    }
+
+    &:before {
+      // @include transform(rotate(45deg));
+    }
+
+    &:after {
+      // @include transform(rotate(-45deg));
+    }
+  }
+
+  .is_visible
+  {
+    opacity: 1;
+
+    > .icr_modal
+    {
+      // @include transform(translateY(0));
+      opacity: 1;
+    }
+  }
+
+  // The controls use absolute pos with a base height.
+  // Inner elements are fluid to account for multiple layouts. See "small" state at bottom of doc.
+  .control
+  {
+    position: relative;
+    margin: auto;
+    background: white;
+    border: solid 1px $input-stroke;
+    height: $controlHeight;
+    // @include border-bottom-radius(4px);
+    // @include pie-clearfix;
+  }
+
+  .control_range
+  {
+    position: absolute;
+    width: 100%;
+    padding-right: 113px;
+
+    .icn-image-size-small {
+      float: left;
+      margin-left: $base-padding;
+      // (60px stage - 16px height icon) / 2  = 22px
+      margin: 22px 0 0 $base-padding;
+    }
+    .icn-image-size-large {
+      float: right;
+      // (60px stage - 24px height icon) / 2  = 18px
+      margin: 18px $base-padding 0 0;
+    }
+    input {
+      display: none;
+    }
+  }
+
+  .control_size
+  {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    // 32px icon + 20px icon + 1px border + 20px * 3 for icon spacing.
+    width: 113px;
+    // 10px below the normal height of 60px to give the border room on top.
+    height: $controlHeight - 10px;
+    line-height: $controlHeight - 10px;
+    text-align: center;
+    border-left: solid 1px $input-stroke;
+  }
+
+  .control_size_button
+  {
+    height: 35px;
+    width: 32px;
+    vertical-align: middle;
+    line-height: 35px;
+    display: inline-block;
+    position: relative;
+    top: -5px; // half of margin between control top and control_size top
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  .slide_wrap
+  {
+    width: 100%;
+    padding: 0 70px 0 60px;
+    margin-top: 27px;
+  }
+
+  .slide
+  {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: color(light-gray);
+    // @include box-shadow(inset 0 0 4px rgba(0,0,0,.2));
+    // @include border-radius($base-border-radius);
+  }
+
+  .tick
+  {
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    height: 12px;
+    width: 12px;
+    margin-left: -6px;
+    background: color(light-gray);
+    // @include box-shadow(inset 0 6px 6px -6px rgba(0,0,0,.2), inset 0 -6px 6px -6px rgba(0,0,0,.2));
+    // @include border-radius(50%);
+
+    .is_left
+    {
+      left: 25%;
+    }
+
+    .is_mid
+    {
+      left: 50%;
+    }
+
+    .is_right
+    {
+      left: 75%;
+    }
+  }
+
+  .slide_marker
+  {
+    position: absolute;
+    top: -7px;
+    left: 40%;
+    height: $base-padding;
+    width: $base-padding;
+    margin-left: $base-padding / 2 * -1;
+    background: color('white');
+    border: solid 1px color('border');
+    // @include box-shadow(0 2px 2px rgba(0,0,0,.13));
+    cursor: pointer;
+    // @include border-radius(50%);
+    // @include transform(scale(1));
+    // @include transition(transform $anim-slight-bounce $anim-speed-normal);
+
+    &:hover {
+      // border-color: darken(color('border'), 13%);
+      // @include transform(scale(1.08));
+    }
+  }
+
+  .btns
+  {
+    text-align: center;
+    padding: $base-padding * 3 0;
+
+
+    button {
+      width: 200px;
+      text-align: center;
+    }
+
+    button:first-child {
+      background: white;
+      margin-right: $base-padding * 2;
+    }
+  }
+
+  // Vertical guidelines.
+  .guide
+  {
+    position: absolute;
+
+    .is_vert
+    {
+      top: 0;
+      width: 1px;
+      height: 100%;
+      // @include background-image(repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px));
+    }
+
+    .is_left
+    {
+      left: 25%;
+    }
+
+    .is_center
+    {
+      left: 50%;
+    }
+
+    .is_right
+    {
+      left: 75%;
+    }
+
+    .is_horiz
+    {
+      top: 0;
+      width: 100%;
+      height: 1px;
+      // @include background-image(repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,.5) 3px, rgba(255,255,255,.5) 6px));
+    }
+
+    .is_top
+    {
+      top: 25%;
+    }
+
+    .is_middle
+    {
+      top: 50%;
+    }
+
+    .is_bottom
+    {
+      top: 75%;
+    }
+  }
+
+  .frame
+  {
+    position: relative;
+    background-color: color(light-gray);
+    background-image: linear-gradient(45deg, color(light-gray) 25%, transparent 25%, transparent 75%, color(light-gray) 75%, color(light-gray)), linear-gradient(45deg, color(light-gray) 25%, transparent 25%, transparent 75%, color(light-gray) 75%, color(light-gray));
+    background-size:40px 40px;
+    background-position:0 0, 20px 20px;
+    margin: auto;
+  }
+
+  .window
+  {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: solid 1px $input-stroke;
+    border-bottom: none;
+    position: relative;
+  }
+
+  .screen
+  {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: move;
+    // This is used to give the user a bleed margin. Border width changes at the style level.
+    border: solid 0px rgba(255,255,255,.25)
+  }
+
+  // The original image behind the main crop.
+  .ghost
+  {
+    z-index: -1;
+    position: absolute;
+    opacity: 0.05;
+    // @include filter(blur(5px));
+    // @include background-size(cover);
+  }
+
+  .image
+  {
+    position: absolute;
+  }
+
+  .canvas
+  {
+    display: none;
+  }
+
+  // For crops below 400px width, the layout changes to a smaller form factor.
+  // The styles below overwrite the base styles above.
+  .is_small
+  {
+
+    // We shift to two rows, so need a larger height. Range and size controls become fluid.
+    .control
+    {
+      height: 105px;
+    }
+
+    .control_range
+    {
+      padding-right: 0;
+    }
+
+    .control_size
+    {
+      width: 100%;
+      top: 60px;
+      border: 0;
+      text-align: center;
+      border-top: solid 1px $input-stroke;
+    }
+
+    // The smaller format only has 3x3 guidelines grid, not 4x4.
+    .guide
+    {
+
+      .is_top
+      {
+        top: 33%;
+      }
+
+      .is_middle
+      {
+        top: 66%;
+      }
+
+      .is_bottom
+      {
+        display: none;
+      }
+
+      .is_left
+      {
+        left: 33%;
+      }
+
+      .is_center
+      {
+        left: 66%;
+      }
+
+      .is_right
+      {
+        display: none;
+      }
+    }
+  }
+}
+
+// Hide close button in lower resolutions. Otherwise it overlays the cropper.
+// @include laptop-down {
+//   @include module ("icr") {
+//     @include element ("close") {
+//       display: none;
+//     }
+//   }
+// }

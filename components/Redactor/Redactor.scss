@@ -1,0 +1,413 @@
+// this controls the rich text editor component. Basically a rewrite of
+// redactor
+
+/*
+// @mixin transition {
+  // @include transition(all $anim-ease $anim-speed-fast);
+// }
+*/
+
+$input-padding: 20px;
+$base-font-family: sans-serif;
+$base-weight-bold: 600;
+$z-modal: 1000;
+$base-padding: 10px;
+$z-fixed: 1000;
+
+//////////////////////////////
+
+$toolbar-height: 36px;
+
+@mixin rte-btn-divider {
+  margin-right: 10px;
+  position: relative;
+
+  &:before {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: -5px;
+    top: 20%;
+    content: '';
+    height: 80%;
+    width: 1px;
+    background: color('border');
+  }
+}
+
+.c-redactor
+{
+  .redactor-box {
+    border: 1px solid color('border');
+    border-radius: 5px;
+    position: relative;
+    padding-bottom: $toolbar-height;
+    // @include transition(all $anim-ease $anim-speed-fast);
+  }
+
+  .redactor-box textarea {
+    display: block;
+    position: relative;
+    padding: $input-padding;
+    margin: 0;
+    width: 100%;
+    overflow: auto;
+    outline: none;
+    border: none;
+    background-color: color('dark-gray');
+    box-shadow: none;
+    color: color('light-gray');
+    font-size: 12px;
+    font-family: Menlo, Monaco, monospace, sans-serif;
+    resize: none;
+    border-radius: 4px 4px 0 0;
+    // @include transform(translateZ(0));
+  }
+
+  .redactor-editor {
+    // @extend .txt-textarea;
+    // @extend %normal-font;
+    position: relative;
+    overflow: auto;
+    padding: $input-padding;
+    outline: none;
+    white-space: normal;
+    border-radius: 4px 4px 0 0;
+    background: white;
+    font-family: $base-font-family;
+    border: none;
+    // @include transition(all, $anim-speed-fast);
+    font-weight: 400;
+    min-height: 100px;
+    max-width: 500px;
+
+    div,
+    p,
+    ul,
+    ol,
+    figure,
+    pre,
+    h1,
+    h2 {
+      margin-bottom: rhythm(.5);
+    }
+
+    p {
+      margin: 0;
+
+      &:after {
+        content: " ";
+      }
+    }
+
+    ul {
+      // @extend .ulist;
+      margin-top: rhythm(.5);
+      margin-bottom: rhythm(.5);
+    }
+
+    strong, b {
+      font-weight: $base-weight-bold;
+    }
+
+    em, i {
+      font-style: italic;
+    }
+
+    h1 {
+      // @extend %large-font;
+    }
+
+    h2 {
+      // @extend %medium-font;
+    }
+
+    a {
+      color: color('blue');
+    }
+  }
+
+  .redactor-toolbar {
+    // @include pie-clearfix();
+    position: absolute !important;
+    top: auto !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    list-style: none;
+    font-size: 14px;
+    background: color('tint-gray');
+    border-top: 1px solid color('border');
+    // @include border-radius(0 0 4px 4px);
+    // @include box-shadow(none);
+    height: $toolbar-height;
+    line-height: $toolbar-height;
+
+    > li {
+      display: inline-block;
+      outline: none;
+      list-style: none;
+      vertical-align: top;
+      height: $toolbar-height;
+
+      &:first-child {
+        > a {
+          border-radius: 3px 0 0 0;
+        }
+      }
+
+      > a {
+        display: block;
+        color: transparent;
+        text-align: center;
+        min-width: $toolbar-height;
+        height: $toolbar-height - 1;
+        line-height: $toolbar-height - 1; //compenstate for border
+        outline: none;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        zoom: 1;
+
+        &.redactor-act {
+          // background: darken(color('light-gray'), 5%) !important;
+
+          &:after {
+            // @extend .icn-bold-selected;
+          }
+        }
+
+        &:hover {
+          background: color('light-gray');
+          border-color: color('light-gray');
+        }
+
+        &:after {
+          width: 20px;
+          height: 20px;
+          // @extend .icn-bold;
+          content: "";
+          vertical-align: middle;
+        }
+
+        &.re-formatting {
+          // @include rte-btn-divider;
+
+          &:after {
+            // @extend .icn-format;
+          }
+
+          &.redactor-act {
+            &:after {
+              // @extend .icn-format-selected;
+            }
+          }
+
+        }
+
+        &.re-italic {
+          // @include rte-btn-divider;
+
+          &:after {
+            // @extend .icn-italic;
+          }
+
+          &.redactor-act {
+            &:after {
+              // @extend .icn-italic-selected;
+            }
+          }
+        }
+
+        &.re-unorderedlist {
+          &:after {
+            // @extend .icn-list;
+          }
+
+          &.redactor-act {
+            &:after {
+              // @extend .icn-list-selected;
+            }
+          }
+        }
+
+        &.re-link {
+          // @include rte-btn-divider;
+
+          &:after {
+            // @extend .icn-link;
+          }
+
+          &.redactor-act {
+            &:after {
+              // @extend .icn-link-selected;
+            }
+          }
+        }
+
+        &.re-html {
+          &:after {
+            // @extend .icn-html;
+          }
+
+          &.redactor-act {
+            &:after {
+              // @extend .icn-html-selected;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  // placeholder
+
+  .redactor-placeholder {
+    position: relative;
+  }
+  .redactor-placeholder:after {
+    position: absolute;
+    top: $input-padding;
+    left: $input-padding;
+    // content: attr(placeholder);
+    color: color('gray');
+  }
+
+  .redactor .focused {
+
+    &.c-redactor {
+      .redactor-box {
+        // @extend %txt-focus;
+      }
+    }
+  }
+}
+
+
+// Dropdown
+.redactor-dropdown {
+  // @extend .pvr_menu;
+  margin-left: 0;
+  margin-top: 0;
+  visibility: visible;
+  // @include transform(scale(1) translateY(0));
+  opacity: 1;
+  z-index: $z-modal + 100 !important;
+
+  &:before,
+  &:after {
+    display: none; // hide arrow
+  }
+
+  > a {
+    display: block;
+    width: 100%;
+    padding: 8px $base-padding;
+    text-decoration: none;
+    border-left:1px solid transparent;
+    border-right:1px solid transparent;
+    color: color('text');
+
+    &:hover {
+      background: color(link);
+      // border-left-color: darken(color(link), 8%);
+      // border-right-color: darken(color(link), 8%);
+      color: color('white');
+    }
+  }
+
+  .redactor-formatting-h1 {
+    // @extend %large-font;
+    font-weight: $base-weight-bold;
+  }
+  .redactor-formatting-h2 {
+    // @extend %medium-font;
+    font-weight: $base-weight-bold;
+  }
+}
+
+// tooltips
+
+.redactor-toolbar-tooltip {
+  position: absolute;
+  max-width: 200px;
+  background: color('dark-gray');
+  // @include border-radius($base-border-radius);
+  line-height: 1.2;
+  color: color('white');
+  z-index: $z-modal + 10;
+  display: none;
+  font-size: 12px;
+  padding: 5px 8px;
+  margin-top: -($toolbar-height + 33px); // toolbar height + tooltip height + margin
+
+  &:after {
+    display: none;
+  }
+
+  &:before {
+    position: absolute;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 4px solid color('dark-gray');
+    border-bottom: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    bottom: -4px;
+    left: 50%;
+    margin-left: -4px;
+  }
+}
+
+// overlay
+
+#redactor-modal-box {
+  // @extend .overlay;
+  z-index: $z-fixed !important;
+  opacity: 1;
+  visibility: visible;
+}
+
+#redactor-modal-close {
+  display: none;
+}
+
+#redactor-modal {
+  // @extend .overlay_modal;
+  font-family: $base-font-family;
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 1;
+
+  section {
+    padding: $base-padding;
+  }
+
+  header {
+    // @extend .overlay_modal_header;
+  }
+
+  footer {
+    padding: $base-padding;
+
+    button {
+      // @extend .btn;
+      margin-right: 10px;
+      width: auto !important;
+
+      &.redactor-modal-action-btn {
+        // @extend .btn-primary;
+      }
+    }
+  }
+
+  input[type=text],
+  input[type=url] {
+    // @extend .txt;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
