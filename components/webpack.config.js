@@ -24,11 +24,25 @@ module.exports = {
     }
   ],
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.(js|jsx)/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: false,
+                },
+              ],
+              '@babel/preset-react',
+            ],
+          }
+          // options: options.babelQuery,
+        }
       }, {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
@@ -39,7 +53,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ["", ".webpack.js", ".web.js", ".jsx", ".js"],
+    extensions: [".webpack.js", ".web.js", ".jsx", ".js"],
     alias: {
       lib: path.join(__dirname, "/lib")
     }

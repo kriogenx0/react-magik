@@ -48,6 +48,7 @@ npm-debug.log*
 
 # Webpack
 /compiled
+/public/compiled
 public/app-compiled.js*
 
 __*
